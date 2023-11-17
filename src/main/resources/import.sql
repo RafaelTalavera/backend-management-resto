@@ -1,0 +1,4 @@
+/* Populate tables menues*/
+
+INSERT INTO menues (imagen, title, detail, price) VALUES ('https://www.freepik.es/foto-gratis/pizza-pizza-rellena-tomates-salami-aceitunas_6087618.htm#query=PIZZA&position=0&from_view=search&track=sph&uuid=6d775c39-9e90-4f89-9aa7-671037cd7e61', 'pizza Napolitana','pizza rellena con tomates, salami y aceitunas', '25.0');
+INSERT INTO menues (imagen, title, detail, price) VALUES ('https://www.freepik.es/foto-gratis/rebanada-pizza-crujiente-carne-queso_7359437.htm#query=PIZZA&position=2&from_view=search&track=sph&uuid=6d775c39-9e90-4f89-9aa7-671037cd7e61', 'pizza Carne','Pizza con pequeños pedazos de carne crujiente', '30.0')

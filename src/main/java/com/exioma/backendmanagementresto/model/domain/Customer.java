@@ -1,14 +1,18 @@
-package com.exioma.backendmanagementresto.domain;
+package com.exioma.backendmanagementresto.model.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import jakarta.persistence.criteria.Order;
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="customers")
 @Entity
 public class Customer implements Serializable {
@@ -24,9 +28,10 @@ public class Customer implements Serializable {
     @OneToOne(mappedBy = "customer")
     private Reservation reservation;
 
-    @OneToOne(mappedBy = "customer")
-    private Order order;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 }
