@@ -10,7 +10,7 @@ public interface IBoardService {
 
     public void save(Board board);
 
-    public Board finOne(Long id);
+    public Board findById(Long id);
 
     public void delete(Long id);
 }

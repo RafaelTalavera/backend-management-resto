@@ -1,26 +1,25 @@
 package com.exioma.backendmanagementresto.model.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "items_orders")
 @Entity
-public class ItemsOder implements Serializable {
+public class ItemsOrder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private Integer amount;
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -35,7 +34,7 @@ public class ItemsOder implements Serializable {
         return amount.doubleValue()* menu.getPrice();
     }
 
-    @Serial
+
     private static final long serialVersionUID = 1L;
 
 }

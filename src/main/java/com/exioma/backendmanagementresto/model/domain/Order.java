@@ -2,12 +2,8 @@ package com.exioma.backendmanagementresto.model.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name="orders")
 public class Order implements Serializable {
@@ -32,17 +29,17 @@ public class Order implements Serializable {
     private Board board;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
-    private List<ItemsOder> items;
+    private List<ItemsOrder> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
     public Double getTotal() {
         return items.stream()
-                .mapToDouble(ItemsOder::calculateAmount)
+                .mapToDouble(ItemsOrder::calculateAmount)
                 .sum();
     }
 
-    @Serial
+
     private static final long serialVersionUID = 1L;
 }

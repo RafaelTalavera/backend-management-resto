@@ -2,9 +2,10 @@ package com.exioma.backendmanagementresto.model.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name="customers")
 @Entity
 public class Customer implements Serializable {
@@ -21,17 +21,30 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @NotNull
     private Boolean pago;
 
-    @OneToOne(mappedBy = "customer")
-    private Reservation reservation;
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER)
+    private Reservation reservation;Z
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @Serial
+    public Customer(Long id, String name, Boolean pago, Reservation reservation, List<Order> orders) {
+        this.id = id;
+        this.name = name;
+        this.pago = pago;
+        this.reservation = reservation;
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer(id=" + id + ", name=" + name + ", pago=" + pago + ")";
+    }
     private static final long serialVersionUID = 1L;
 
 }

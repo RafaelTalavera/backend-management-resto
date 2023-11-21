@@ -11,7 +11,7 @@ public interface IReservationService {
 
     public void save(Reservation Reservation);
 
-    public Reservation finOne(Long id);
+    public Reservation finById(Long id);
 
     public void delete(Long id);
 }

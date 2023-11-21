@@ -2,12 +2,10 @@ package com.exioma.backendmanagementresto.model.domain;
 
 import com.exioma.backendmanagementresto.dto.MenuRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 
@@ -23,18 +21,18 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String imagen;
 
+    @NotBlank
     private String title;
 
+    @NotBlank
     private String detail;
 
+    @NotBlank
+    @Positive
     private Double price;
-
-   /* @Enumerated(EnumType.STRING)
-    private Tipe tipe;
-    public enum Tipe{ DESSERTS, STARTER , MAIN_COURSE, DRINK }
-    */
 
     public Menu(MenuRequestDTO menuRequestDTO) {
         this.imagen = menuRequestDTO.imagen();
@@ -42,6 +40,6 @@ public class Menu implements Serializable {
         this.detail = menuRequestDTO.detail();
         this.price = menuRequestDTO.price();
     }
-    @Serial
+
     private static final long serialVersionUID = 1L;
 }

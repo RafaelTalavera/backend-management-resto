@@ -13,4 +13,8 @@ public record MenuResponseDTO(
     public MenuResponseDTO(Menu menu){
         this(menu.getId(), menu.getImagen(), menu.getTitle(), menu.getDetail(), menu.getPrice());
     }
+
+    public void setMessage(String menuSavedSuccessfully) {
+
+    }
 }

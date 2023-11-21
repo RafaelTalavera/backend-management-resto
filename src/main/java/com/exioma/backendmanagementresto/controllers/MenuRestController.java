@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/api/menu")
 public class MenuRestController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class MenuRestController {
     @GetMapping
     public List<MenuResponseDTO> getAll(){
         List<MenuResponseDTO> menuList = menuService.findAll().stream().map(MenuResponseDTO::new).toList();
-        
+
         if (!menuList.isEmpty()) {
             return menuList;
         } else {
@@ -53,10 +53,14 @@ public class MenuRestController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public void saveMenu(@RequestBody MenuRequestDTO data){
+    public ResponseEntity<MenuResponseDTO> saveMenu(@RequestBody MenuRequestDTO data) {
         Menu foodData = new Menu(data);
         menuService.save(foodData);
-        return;
+
+        MenuResponseDTO responseDTO = new MenuResponseDTO(foodData);
+        responseDTO.setMessage("Menu saved successfully");
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
