@@ -1,14 +1,17 @@
 package com.exioma.backendmanagementresto.dto;
 
 import com.exioma.backendmanagementresto.model.domain.Board;
+import com.exioma.backendmanagementresto.model.domain.Reservation;
 
 public record BoardResponseDTO (
         Long id,
         int chair,
         String name,
-        Boolean condition
+        Boolean condition,
+        ReservationResponseDTO reservation
+
 ){
     public BoardResponseDTO(Board board){
-        this(board.getId(), board.getChair(), board.getName(), board.getCondition());
+        this(board.getId(), board.getChair(), board.getName(), board.getCondition(), new ReservationResponseDTO(board.getReservation()));
     }
 }

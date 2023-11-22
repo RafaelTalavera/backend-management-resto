@@ -1,5 +1,6 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -27,19 +28,21 @@ public class Customer implements Serializable {
     @NotNull
     private Boolean pago;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER)
-    private Reservation reservation;Z
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer")
+    private List<Reservation> reservations;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Customer(Long id, String name, Boolean pago, Reservation reservation, List<Order> orders) {
+    public Customer(Long id, String name, Boolean pago, List<Reservation> reservations, List<Order> orders) {
         this.id = id;
         this.name = name;
         this.pago = pago;
-        this.reservation = reservation;
+        this.reservations = reservations;
         this.orders = orders;
     }
+
 
     @Override
     public String toString() {

@@ -17,7 +17,7 @@ class CustomerTest {
 
     @Test
     public void testGetterAndSetter() {
-        Customer customer = new Customer();
+        Customer customer = new Customer();  // Usando el constructor por defecto
 
         // Set values using setters
         customer.setId(1L);
@@ -29,16 +29,14 @@ class CustomerTest {
         assertThat(customer.getName()).isEqualTo("John Doe");
         assertThat(customer.getPago()).isEqualTo(true);
 
-        // Test reservation and orders (assuming you have appropriate equals() and hashCode() methods)
+        // Test reservations and orders (assuming you have appropriate equals() and hashCode() methods)
         Reservation reservation = new Reservation();
-        customer.setReservation(reservation);
+        customer.setReservations(Collections.singletonList(reservation));
 
         Order order = new Order();
         customer.setOrders(Collections.singletonList(order));
 
-        assertThat(customer.getReservation()).isEqualTo(reservation);
-        assertThat(customer.getOrders()).containsExactly(order);
+        assertThat(customer.getReservations()).isEqualTo(Collections.singletonList(reservation));
+        assertThat(customer.getOrders()).isEqualTo(Collections.singletonList(order));
     }
-
-    // Add more tests as needed based on your specific requirements
 }

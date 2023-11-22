@@ -5,9 +5,10 @@ INSERT INTO menues (imagen, title, detail, price) VALUES ('https://www.freepik.e
 
 INSERT INTO customers (name, pago) VALUES ('pepe', 'true');
 
+INSERT INTO boards ( chair, name, condition) VALUES (1, 'mesa 2', true);
 
-INSERT INTO reservations ( people, date_time, customer_id ) VALUES ( 1, '2023-11-21 15:30:00', 1);
+INSERT INTO reservations ( people, date_time, customer_id, board_id ) VALUES ( 1, '2023-11-21 15:30:00', 1, 1);
 
-INSERT INTO boards ( chair, name, condition, reservation_id) VALUES (1, 'mesa 2', true, 1);
+
 
 

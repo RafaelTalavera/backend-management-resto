@@ -1,5 +1,7 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +9,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -29,13 +32,24 @@ public class Reservation implements Serializable {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+    @JsonManagedReference
     @OneToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
+
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(mappedBy = "reservation")
-    private Board board;
+    @OneToMany(mappedBy = "reservation")
+    private List<Order> orders;
 
+    // En la clase Reservation
+    public void setCustomerAndReservation(Customer customer) {
+        this.customer = customer;
+        customer.getReservations().add(this);
+    }
 
 
     private static final long serialVersionUID = 1L;

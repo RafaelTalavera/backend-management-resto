@@ -1,5 +1,6 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,8 +31,8 @@ public class Board implements Serializable {
     @NotNull
     private Boolean condition;
 
-    @OneToOne
-    @JoinColumn(name = "reservation_id")
+    @JsonBackReference
+    @OneToOne(mappedBy = "board")
     private Reservation reservation;
 
     @OneToMany(mappedBy = "board")

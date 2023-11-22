@@ -42,13 +42,8 @@ public class MenuRestController {
             MenuResponseDTO menuResponseDTO = new MenuResponseDTO(menuOptional.get());
             return ResponseEntity.ok(menuResponseDTO);
         } else {
-            // Lanza una excepción personalizada
             throw new RegistroNoEncontradoException("No se encontró el registro con ID: " + id);
         }
-    }
-    @ExceptionHandler(RegistroNoEncontradoException.class)
-    public ResponseEntity<String> handleRegistroNoEncontradoException(RegistroNoEncontradoException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

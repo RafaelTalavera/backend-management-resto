@@ -34,12 +34,31 @@ public class Order implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")  // Nombre correcto del campo de relación
+    private Reservation reservation;  // Corregido el nombre del campo
+
     public Double getTotal() {
         return items.stream()
                 .mapToDouble(ItemsOrder::calculateAmount)
                 .sum();
     }
 
+    public void setCustomerAndOrder(Customer customer) {
+        this.customer = customer;
+        customer.getOrders().add(this);
+    }
+
+    public void setEmployeeAndOrder(Employee employee) {
+        this.employee = employee;
+        employee.getOrders().add(this);
+    }
+
+    // Corregir el nombre del método y la lógica para agregar ItemsOrder a la lista
+    public void addItemsOrder(ItemsOrder itemsOrder) {
+        this.items.add(itemsOrder);
+        itemsOrder.setOrder(this);
+    }
 
     private static final long serialVersionUID = 1L;
 }

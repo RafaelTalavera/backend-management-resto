@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+import java.util.List;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -33,6 +33,9 @@ public class Employee implements Serializable {
     @Enumerated(EnumType.STRING)
     private Position position;
 
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Order> orders;
+
 
     public enum Position { MOZO, RECEPTIONIST, MANAGER, CHEEF }
 
@@ -47,6 +50,9 @@ public class Employee implements Serializable {
         this.position = position;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     private static final long serialVersionUID = 1L;
 
