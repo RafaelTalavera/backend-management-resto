@@ -11,7 +11,7 @@ public interface IEmployeeService {
 
     public void save(Employee employee);
 
-    public Employee finOne(Long id);
+    public Employee findById(Long id);
 
-    public void delete(Long id);
+    public void deleteById(Long id);
 }

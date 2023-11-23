@@ -1,5 +1,6 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.exioma.backendmanagementresto.dto.ReservationRequestDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -45,12 +46,32 @@ public class Reservation implements Serializable {
     @OneToMany(mappedBy = "reservation")
     private List<Order> orders;
 
-    // En la clase Reservation
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     public void setCustomerAndReservation(Customer customer) {
         this.customer = customer;
         customer.getReservations().add(this);
     }
 
+    public Reservation(ReservationRequestDTO reservationRequestDTO){
+        this.people = reservationRequestDTO.people();
+        this.dateTime = reservationRequestDTO.dateTime();
+
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     private static final long serialVersionUID = 1L;
 

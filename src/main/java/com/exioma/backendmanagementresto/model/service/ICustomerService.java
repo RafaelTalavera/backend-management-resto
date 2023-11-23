@@ -10,7 +10,7 @@ public interface ICustomerService {
 
     public void save(Customer customer);
 
-    public Customer finOne(Long id);
+    public Customer findById(Long id);
 
-    public void delete(Long id);
+    public void deleteById(Long id);
 }

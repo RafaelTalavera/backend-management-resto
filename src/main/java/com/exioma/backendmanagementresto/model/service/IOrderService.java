@@ -11,7 +11,7 @@ public interface IOrderService {
 
     public void save(Order order);
 
-    public Order finOne(Long id);
+    public Order finById(Long id);
 
-    public void delete(Long id);
+    public void deleteById(Long id);
 }
