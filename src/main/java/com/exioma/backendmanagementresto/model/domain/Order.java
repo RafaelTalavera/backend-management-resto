@@ -44,21 +44,7 @@ public class Order implements Serializable {
                 .sum();
     }
 
-    public void setCustomerAndOrder(Customer customer) {
-        this.customer = customer;
-        customer.getOrders().add(this);
-    }
 
-    public void setEmployeeAndOrder(Employee employee) {
-        this.employee = employee;
-        employee.getOrders().add(this);
-    }
-
-    // Corregir el nombre del método y la lógica para agregar ItemsOrder a la lista
-    public void addItemsOrder(ItemsOrder itemsOrder) {
-        this.items.add(itemsOrder);
-        itemsOrder.setOrder(this);
-    }
 
     private static final long serialVersionUID = 1L;
 }

@@ -1,5 +1,6 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.exioma.backendmanagementresto.dto.CustomerRequestDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -35,12 +36,10 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Customer(Long id, String name, Boolean pago, List<Reservation> reservations, List<Order> orders) {
-        this.id = id;
-        this.name = name;
-        this.pago = pago;
-        this.reservations = reservations;
-        this.orders = orders;
+    public Customer(CustomerRequestDTO customerRequestDTO) {
+        this.name = customerRequestDTO.name();
+        this.pago = customerRequestDTO.pago();
+
     }
 
 

@@ -13,7 +13,6 @@ import com.exioma.backendmanagementresto.model.service.IEmployeeService;
 import com.exioma.backendmanagementresto.model.service.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +23,13 @@ import java.util.Optional;
 @RequestMapping("/api/reservation")
 public class ReservationRestController {
 
-    @Autowired
-    private IReservationService reservationService;
+    @Autowired private IReservationService reservationService;
 
-    @Autowired
-    private IBoardService boardService;
+    @Autowired private IBoardService boardService;
 
-    @Autowired
-    private ICustomerService customerService;
+    @Autowired private ICustomerService customerService;
 
-    @Autowired
-    private IEmployeeService employeeService;
+    @Autowired private IEmployeeService employeeService;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
@@ -66,27 +61,61 @@ public class ReservationRestController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<ReservationResponseDTO> saveReservation(@RequestBody ReservationRequestDTO data) {
-        // Crear una nueva instancia de Reservation
+        Customer customer = customerService.findById(data.customerId());
+        Employee employee = employeeService.findById(data.employeeId());
+
+        Board board = boardService.findById(data.boardId());
+
+        if (board == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         Reservation reservationData = new Reservation(data);
-
-        // Obtener el Board, Customer y Employee por sus IDs (puedes ajustar esto según tu lógica)
-        Board board = boardService.findById(data.getBoardId());
-        Customer customer = customerService.findById(data.getCustomerId());
-        Employee employee = employeeService.findById(data.getEmployeeId());
-
-        // Asignar el Board, Customer y Employee a la reserva
         reservationData.setBoard(board);
         reservationData.setCustomer(customer);
         reservationData.setEmployee(employee);
-
-        // Guardar la reserva en la base de datos
         reservationService.save(reservationData);
-
-        // Crear el DTO de respuesta
         ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO(reservationData);
 
-        // Retornar la respuesta
         return new ResponseEntity<>(reservationResponseDTO, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservationResponseDTO> updateReservation(
+            @PathVariable Long id,
+            @RequestBody ReservationRequestDTO data) {
+
+        Reservation existingReservation = reservationService.finById(id);
+
+        if (existingReservation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Customer customer = customerService.findById(data.customerId());
+        Employee employee = employeeService.findById(data.employeeId());
+
+        Board board = boardService.findById(data.boardId());
+
+        if (board == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        existingReservation.setPeople(data.people());
+        existingReservation.setDateTime(data.dateTime());
+        existingReservation.setBoard(board);
+        existingReservation.setCustomer(customer);
+        existingReservation.setEmployee(employee);
+        reservationService.save(existingReservation);
+        ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO(existingReservation);
+
+        return new ResponseEntity<>(reservationResponseDTO, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteReservation(@PathVariable Long id){
+        reservationService.deleteById(id);
+        return ResponseEntity.ok("Éxito: La reservación con ID " + id + " ha sido eliminado.");
     }
 
 }

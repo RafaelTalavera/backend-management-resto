@@ -1,6 +1,7 @@
 package com.exioma.backendmanagementresto.model.domain;
 
 
+import com.exioma.backendmanagementresto.dto.EmployeeRequestDTO;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +30,8 @@ public class Employee implements Serializable {
     @NotBlank
     private String rut;
 
+    private Date brithday;
+
     @NotBlank
     @Enumerated(EnumType.STRING)
     private Position position;
@@ -44,14 +47,11 @@ public class Employee implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date DateAdmission;
 
-    public Employee(Long id, String name, Position position) {
-        this.id = id;
-        this.name = name;
-        this.position = position;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
+    public Employee(EmployeeRequestDTO requestDTO) {
+        this.brithday = requestDTO.brithDay();
+        this.name = requestDTO.name();
+        this.DateAdmission = requestDTO.dateAdmission();
+        this.position = requestDTO.position();
     }
 
     private static final long serialVersionUID = 1L;

@@ -12,5 +12,5 @@ public interface IBoardService {
 
     public Board findById(Long id);
 
-    public void delete(Long id);
+    public void deleteById(Long id);
 }

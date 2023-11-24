@@ -2,7 +2,6 @@ package com.exioma.backendmanagementresto.dto;
 
 import com.exioma.backendmanagementresto.model.domain.Menu;
 
-
 public record MenuResponseDTO(
        Long id,
        String imagen,

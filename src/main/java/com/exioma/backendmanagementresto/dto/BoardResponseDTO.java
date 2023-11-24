@@ -1,7 +1,6 @@
 package com.exioma.backendmanagementresto.dto;
 
 import com.exioma.backendmanagementresto.model.domain.Board;
-import com.exioma.backendmanagementresto.model.domain.Reservation;
 
 public record BoardResponseDTO (
         Long id,

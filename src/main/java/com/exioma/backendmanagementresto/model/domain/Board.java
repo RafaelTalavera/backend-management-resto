@@ -1,5 +1,6 @@
 package com.exioma.backendmanagementresto.model.domain;
 
+import com.exioma.backendmanagementresto.dto.BoardRequestDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -38,9 +39,11 @@ public class Board implements Serializable {
     @OneToMany(mappedBy = "board")
     private List<Order> orders;
 
-    public Board(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Board(BoardRequestDTO boardRequestDTO) {
+        this.chair = boardRequestDTO.chair();
+        this.name = boardRequestDTO.name();
+        this.condition = boardRequestDTO.condition();
+
     }
 
     private static final long serialVersionUID = 1L;

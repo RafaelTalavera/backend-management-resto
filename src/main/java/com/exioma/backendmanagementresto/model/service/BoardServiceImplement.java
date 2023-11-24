@@ -31,5 +31,5 @@ public class BoardServiceImplement implements IBoardService{
 
     @Override
     @Transactional
-    public void delete(Long id) {boardDao.deleteById(id);}
+    public void deleteById(Long id) {boardDao.deleteById(id);}
 }

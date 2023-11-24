@@ -16,8 +16,7 @@ public class ReservationServiceImplement implements IReservationService{
 
     @Transactional(readOnly = true)
     @Override
-    public List<Reservation> findAll() {return (List<Reservation>) reservationDao.findAll();
-    }
+    public List<Reservation> findAll() {return (List<Reservation>) reservationDao.findAll();}
 
     @Transactional
     @Override
@@ -25,10 +24,9 @@ public class ReservationServiceImplement implements IReservationService{
 
     @Transactional
     @Override
-    public Reservation finById(Long id) { return reservationDao.findById(id).orElse(null);
-    }
+    public Reservation finById(Long id) { return reservationDao.findById(id).orElse(null);}
 
     @Transactional
     @Override
-    public void delete(Long id) {reservationDao.deleteById(id);}
+    public void deleteById(Long id) {reservationDao.deleteById(id);}
 }

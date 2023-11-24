@@ -10,8 +10,8 @@ public record ReservationResponseDTO(
         Long id,
         int people,
         LocalDateTime dateTime,
-        Board board,
-        Customer customer
+        Board boardId,
+        Customer customerId
 ){
     public ReservationResponseDTO(Reservation reservation){
         this(reservation.getId(),

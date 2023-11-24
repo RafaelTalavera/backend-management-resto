@@ -26,10 +26,9 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private int people;
 
-    @NotBlank
+
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
@@ -61,17 +60,6 @@ public class Reservation implements Serializable {
 
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 
     private static final long serialVersionUID = 1L;
 
